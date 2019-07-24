@@ -1,0 +1,22 @@
+version: '3'
+services:
+  keeper-node:
+    image: ${PARITY_IMAGE}
+    command:
+      --config /home/parity/parity/config/config.toml
+      --db-path /home/parity/chains
+      --base-path /home/parity/base
+      --ws-interface all
+      --jsonrpc-cors all
+      --jsonrpc-interface all
+      --jsonrpc-hosts all
+      --jsonrpc-apis all
+    volumes:
+      - ../networks/pacific/config:/home/parity/parity/config
+      - ../networks/pacific/keys:/home/parity/.local/share/io.parity.ethereum/keys
+      - keeper-node-pacific:/home/parity/.local/share/io.parity.ethereum/
+    ports:
+      - 8545:8545
+    networks:
+      backend:
+        ipv4_address: 172.15.0.12
